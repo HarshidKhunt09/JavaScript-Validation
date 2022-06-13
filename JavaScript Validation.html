@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validate Form</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito&family=Open+Sans&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Nunito', sans-serif;
+        }
+
+        .main {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .form-container {
+            background-color: rgb(226, 224, 243);
+            height: 600px;
+            width: 600px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+        }
+
+        label {
+            margin-left: 40px;
+        }
+
+        h1 {
+            margin-left: 200px;
+        }
+
+        .submit {
+            width: 100px;
+            margin-left: 250px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <form class="form-container" onsubmit="validate(this);">
+            <h1>HTML FORM</h1>
+            <label>
+                Name :-
+                <input type="text" name="name" />
+            </label>
+            <label>
+                Address :-
+                <input type="text" name="address" />
+            </label>
+            <label>
+                Phone :-
+                <input type="text" name="phone" />
+            </label>
+            <label>
+                Domain :-
+                <input type="text" name="domain" />
+            </label>
+            <label>
+                Email :-
+                <input type="text" name="email" />
+            </label>
+            <label>
+                Password :-
+                <input type="text" name="password" />
+            </label>
+            <label>
+                Confirm Password :-
+                <input type="text" name="confirmPassword" />
+            </label>
+            <input class="submit" type="submit" value="Submit" name="submit" />
+        </form>
+    </div>
+
+
+    <script>
+        function validate(form) {
+            var regName = /^[a-zA-Z]+ [a-zA-Z]+ [a-zA-Z]+$/;
+            var regAddress = /^[0-9a-zA-Z\s,]+$/;
+            var regPhone1 = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+            var regPhone2 = /^\d{10}$/;
+            var regDomain = /^[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9](?:\.[a-zA-Z]{2,})+$/;
+            var regEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+            var regPassword = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
+            var name = form.name.value;
+            var address = form.address.value;
+            var phone = form.phone.value;
+            var domain = form.domain.value;
+            var email = form.email.value;
+            var password = form.password.value;
+            var confirmPassword = form.confirmPassword.value;
+            if (!regName.test(name)) {
+                alert('Please enter valid name (first, middle & last name).');
+                return false;
+            } else if (!regAddress.test(address)) {
+                alert('Please enter valid address (alphabets, digits and comma only)');
+                return false;
+            } else if (!(regPhone1.test(phone) || regPhone2.test(phone))) {
+                alert('Please enter valid phone (ex- 9876543210 or 321-654-9876)');
+                return false;
+            } else if (!regDomain.test(domain)) {
+                alert('Please enter valid domain (ex- ckpcet.ac.in or ckpcet.com etc)');
+                return false;
+            } else if (!regEmail.test(email)) {
+                alert('Please enter valid email');
+                return false;
+            } else if (!regPassword.test(password)) {
+                alert('Please enter valid password (minimum 8 letters, at least 1 uppercase, 1 digit and 1 special symbol)');
+                return false;
+            } else if (!(password == confirmPassword)) {
+                alert('Password and Confirm Password should be same');
+            }
+            else {
+                return true;
+            }
+        }
+    </script>
+</body>
+
+</html>
